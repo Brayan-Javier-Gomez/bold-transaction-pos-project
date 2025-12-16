@@ -1,0 +1,16 @@
+{
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "name": "Transacciones",
+    "short_name": "Transacciones",
+    "icons": [
+        {
+            "src": "/favicon.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        }
+    ]
+}
