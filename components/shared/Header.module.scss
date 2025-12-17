@@ -1,0 +1,39 @@
+@use "@/styles/mixins" as *;
+
+.header {
+  background: var(--bold-gradient);
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 10px 30px 10px 30px;
+    @include tablet{
+        padding: 10px 100px 10px 30px;
+    }
+  }
+  &__logo {
+    width: 80px;
+    height: 48px;
+    object-fit: contain;
+    @include tablet {
+      width: 130px;
+      height: 80px;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  &__nav {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    &__items {
+      color: #fff;
+      font-size: 16px;
+      text-decoration: none;
+    }
+  }
+}

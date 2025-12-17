@@ -1,0 +1,91 @@
+@use "@/styles/mixins" as *;
+
+.transaction{
+    &__table{
+        width: 100%;
+
+        display: block;
+
+        @include tablet{
+            display: table;
+        }
+
+        &__head{
+            display: none;
+
+            @include tablet{
+                display: table-header-group;
+                border-bottom: 2px solid var(--bold-gray-2);
+            }
+
+            th{
+                font-size: 12px;
+                font-weight: 500;
+                text-align: left;
+                color: #000;
+                padding: 8px 12px;
+            }
+        }
+
+        &__body{
+            display: block;
+            @include tablet{
+                display: table-row-group;
+            }
+
+            tr{
+                display: block;
+                margin-bottom: 16px;
+                padding: 16px;
+                border-left: 4px solid #a9a9a9;
+                border-radius: 8px;
+                background-color: #fff;
+                @include shadow;
+                cursor: pointer;
+
+                @include tablet{
+                    display: table-row;
+                    margin-bottom: 0;
+                    padding: 0;
+                    border-radius: 0;
+                    box-shadow: none;
+                    border-left: 2px solid #a9a9a9;
+                    border-bottom: 1px solid var(--bold-gray-1);
+                }
+
+                &:hover{
+                    background-color: var(--bold-gray-2);
+                }
+
+                &:nth-child(2n+1){
+                    border-left-color: var(--bold-blue);
+                }
+            }
+
+            td{
+                display: grid;
+                grid-template-columns: 120px 1fr;
+                gap: 8px;
+                padding: 8px 0;
+                font-size: 11px;
+
+                @include tablet{
+                    display: table-cell;
+                    grid-template-columns: none;
+                    padding: 24px 12px;
+                    font-size: 12px;
+                }
+
+                &::before{
+                    content: attr(data-label);
+                    font-weight: 600;
+                    color: #666;
+                    font-size: 12px;
+                    @include tablet{
+                        content: none;
+                    }
+                }
+            }
+        }
+    }
+}
