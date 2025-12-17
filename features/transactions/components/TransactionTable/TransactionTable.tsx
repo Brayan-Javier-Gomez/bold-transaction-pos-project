@@ -5,6 +5,7 @@ import TransactionRow from "./TransactionRow"
 import TableSkeleton from "./TableSkeleton"
 import type { TransactionFilters } from "@/lib/types"
 import styles from "./TransactionTable.module.scss"
+import Pagination from "../Pagination/Pagination"
 
 interface TransactionTableProps {
   readonly searchParams?: { [key: string]: string | string[] | undefined }
@@ -43,6 +44,9 @@ async function TransactionTableContent({ filters }: { readonly filters: Transact
           ))}
         </tbody>
       </table>
+
+      {/* Pagination controls */}
+      <Pagination meta={meta} />
     </>
   )
 }
