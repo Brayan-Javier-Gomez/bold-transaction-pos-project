@@ -62,7 +62,7 @@ export default async function TransactionsPage({ searchParams }: PageProps) {
           </p>
         </div>
         <Search />
-        <TransactionTable />
+        <TransactionTable searchParams={params} />
       </section>
     </main>
   )

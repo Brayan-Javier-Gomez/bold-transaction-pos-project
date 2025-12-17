@@ -1,0 +1,49 @@
+@use "@/styles/mixins" as *;
+
+.transaction__row {
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding-left: 0;
+
+    @include tablet {
+      padding-left: 10px;
+    }
+
+    img{
+      position: absolute;
+      color: var(--bold-blue);
+      fill: var(--bold-blue);
+    }
+
+    span{
+      font-weight: 600;
+      color: var(--bold-blue);
+      margin-left: 23px;
+      @include tablet{
+        margin-left: 35px;
+      }
+    }
+  }
+
+  &__amount{
+    font-weight: 600;
+    color: var(--bold-blue);
+    font-size: 14px !important;
+  }
+
+  &__payment {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    img{
+      position: absolute;
+    }
+
+    span{
+      margin-left: 35px;
+    }
+  }
+}

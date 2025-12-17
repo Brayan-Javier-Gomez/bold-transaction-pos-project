@@ -53,7 +53,14 @@ function filterTransactions(
 export async function getTransactions(
   filters: TransactionFilters = {}
 ): Promise<PaginatedResponse<Transaction>> {
-  const validatedFilters = validateTransactionFilters(filters)
+  // Aplicar defaults antes de validar
+  const filtersWithDefaults = {
+    page: 1,
+    pageSize: 20,
+    ...filters
+  }
+
+  const validatedFilters = validateTransactionFilters(filtersWithDefaults)
 
   validateFiltersSecurity(validatedFilters)
 

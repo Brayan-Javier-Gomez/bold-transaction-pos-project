@@ -36,15 +36,17 @@ export const paymentMethodSchema = z.enum(["NEQUI", "CARD", "BANCOLOMBIA", "PSE"
 export const transactionFiltersSchema = z.object({
   period: periodFilterSchema.optional(),
   search: searchQuerySchema.optional(),
-  page: pageNumberSchema,
-  pageSize: pageSizeSchema,
-  paymentMethod: z.string()
-    .transform((val) => val.split(",").map(m => m.trim()))
+  page: pageNumberSchema.optional(),
+  pageSize: pageSizeSchema.optional(),
+  paymentMethod: z.union([
+    z.string().transform((val) => val.split(",").map(m => m.trim())),
+    z.array(z.string())
+  ])
     .pipe(z.array(paymentMethodSchema))
     .optional(),
   status: z.enum(["SUCCESSFUL", "REJECTED"]).optional(),
   salesType: salesTypeFilterSchema.optional()
-}).strict()
+})
 
 
 export const urlSearchParamsSchema = z.object({
