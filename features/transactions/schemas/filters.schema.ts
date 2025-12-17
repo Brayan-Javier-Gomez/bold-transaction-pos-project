@@ -31,15 +31,22 @@ export const pageSizeSchema = z
 
 export const salesTypeFilterSchema = z.enum(["TERMINAL", "PAYMENT_LINK"])
 
+export const paymentMethodSchema = z.enum(["NEQUI", "CARD", "BANCOLOMBIA", "PSE", "DAVIPLATA"])
+
 export const transactionFiltersSchema = z.object({
   period: periodFilterSchema.optional(),
   search: searchQuerySchema.optional(),
-  page: pageNumberSchema,
-  pageSize: pageSizeSchema,
-  paymentMethod: z.enum(["NEQUI", "CARD", "BANCOLOMBIA", "PSE", "DAVIPLATA"]).optional(),
+  page: pageNumberSchema.optional(),
+  pageSize: pageSizeSchema.optional(),
+  paymentMethod: z.union([
+    z.string().transform((val) => val.split(",").map(m => m.trim())),
+    z.array(z.string())
+  ])
+    .pipe(z.array(paymentMethodSchema))
+    .optional(),
   status: z.enum(["SUCCESSFUL", "REJECTED"]).optional(),
   salesType: salesTypeFilterSchema.optional()
-}).strict()
+})
 
 
 export const urlSearchParamsSchema = z.object({

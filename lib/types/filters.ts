@@ -12,7 +12,7 @@ export interface TransactionFilters {
   readonly search?: string
   readonly page?: number
   readonly pageSize?: number
-  readonly paymentMethod?: PaymentMethod
+  readonly paymentMethod?: PaymentMethod[]
   readonly status?: TransactionStatus
   readonly salesType?: SalesType
 }
