@@ -17,7 +17,7 @@ export default function TableSkeleton() {
           {Array.from({ length: 8 }).map((_, i) => (
             <tr key={i}>
               <td>
-                <div className={styles.skeleton} style={{ width: '120px', height: '16px' }} />
+                <div className={styles.skeleton} style={{ width: '120px', height: '16px', marginLeft:'50px' }} />
               </td>
               <td>
                 <div className={styles.skeleton} style={{ width: '140px', height: '16px' }} />

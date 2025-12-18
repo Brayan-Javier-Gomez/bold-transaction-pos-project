@@ -69,8 +69,9 @@ export default async function TransactionTable({ searchParams }: TransactionTabl
     console.warn("Query params inválidos:", error)
   }
 
+  const suspenseKey = JSON.stringify(filters)
   return (
-    <Suspense fallback={<TableSkeleton />}>
+    <Suspense key={suspenseKey} fallback={<TableSkeleton />}>
       <TransactionTableContent filters={filters} />
     </Suspense>
   )

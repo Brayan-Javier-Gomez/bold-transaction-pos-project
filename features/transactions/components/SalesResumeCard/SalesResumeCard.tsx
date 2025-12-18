@@ -42,7 +42,6 @@ export default async function SalesResumeCard({
   period,
 }: SalesResumeCardProps) {
   const periodTitle = getPeriodDisplayName(period);
-
   return (
     <section className={styles.card}>
       <div className={styles.card__header}>
@@ -54,7 +53,7 @@ export default async function SalesResumeCard({
         </span>
       </div>
       <div className={styles.card__content}>
-        <Suspense fallback={<SalesCardSkeleton />}>
+        <Suspense key={period} fallback={<SalesCardSkeleton />}>
           <SalesContent period={period} />
         </Suspense>
       </div>
