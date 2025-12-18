@@ -16,6 +16,68 @@ Sistema de gestión de transacciones financieras con arquitectura orientada a do
 
 ---
 
+## Funcionalidades
+
+### Visualización de Transacciones
+
+- **Dashboard de ventas**: Resumen de ventas totales con métricas de transacciones aprobadas y rechazadas
+- **Tabla de transacciones**: Listado completo con información de cada transacción (fecha, método de pago, monto, ID)
+
+### Sistema de Filtros
+
+- **Filtros por periodo**:
+  - Hoy
+  - Esta semana
+  - Este mes
+
+- **Filtros por tipo de cobro**:
+  - Datafono (terminal física)
+  - Link de pago (pago online)
+
+- **Filtros por método de pago**:
+  - PSE
+  - Nequi
+  - Bancolombia
+  - Daviplata
+  - Tarjetas de crédito/débito (Mastercard, Visa)
+
+### Búsqueda y Navegación
+
+- **Búsqueda global**: Sistema de búsqueda que permite filtrar por cualquier campo de la tabla (ID transacción, monto, método de pago, etc.)
+- **Paginación**: Navegación por páginas de resultados con información de página actual y total
+- **Actualización en tiempo real**: Los filtros y búsquedas actualizan la URL permitiendo compartir estados específicos
+
+
+## Principios de Arquitectura
+
+Este proyecto fue diseñado para manejar **información financiera sensible**. Por ello:
+
+### Seguridad
+
+- **Server-Side Rendering (SSR)**: Los datos se obtienen y procesan en el servidor, nunca expuestos en el cliente
+- **Validación estricta**: Todos los datos pasan por Zod schemas antes de procesarse
+- **Sanitización**: Input del usuario sanitizado antes de búsquedas
+- **TypeScript estricto**: Modo `strict: true` para prevenir errores en tiempo de compilación
+- **Sin secretos en frontend**: Variables sensibles solo en servidor
+- **Validación de seguridad**: Límites en paginación, filtros y queries para prevenir ataques
+
+### Control de Datos
+
+- **Arquitectura funcional**: Funciones puras para filtros, agregaciones y enriquecimiento
+- **Inmutabilidad**: Uso de `ReadonlyArray` y tipos `readonly` en toda la capa de dominio
+- **Pipeline de datos**: Flujo predecible: fetch → validate → filter → enrich → aggregate → paginate
+- **Testing**: Cada capa del pipeline tiene tests unitarios e integración
+
+### User Experience
+
+- **SSR para velocidad**: Datos pre-renderizados en servidor, mejor TTFB
+- **Client solo para interacción**: DOM y UI interactiva, sin lógica de negocio
+- **Optimistic UI**: Feedback inmediato en acciones del usuario
+- **Skeleton Loading**: Estados de carga con skeleton screens para feedback visual
+- **Responsive**: Mobile-first design
+
+
+
 ## Requisitos
 
 - **Node.js**: >= 18.x
@@ -95,8 +157,6 @@ vercel --prod
 
 
 
----
-
 ## Estructura del Proyecto
 
 ```
@@ -156,37 +216,8 @@ vercel --prod
 - **Agregaciones y cálculos**: `features/transactions/services/aggregations/`
 - **Enriquecimiento de datos**: `features/transactions/services/enrichers/`
 
----
 
-## Principios de Arquitectura
 
-Este proyecto fue diseñado para manejar **información financiera sensible**. Por ello:
-
-### Seguridad
-
-- **Server-Side Rendering (SSR)**: Los datos se obtienen y procesan en el servidor, nunca expuestos en el cliente
-- **Validación estricta**: Todos los datos pasan por Zod schemas antes de procesarse
-- **Sanitización**: Input del usuario sanitizado antes de búsquedas
-- **TypeScript estricto**: Modo `strict: true` para prevenir errores en tiempo de compilación
-- **Sin secretos en frontend**: Variables sensibles solo en servidor
-- **Validación de seguridad**: Límites en paginación, filtros y queries para prevenir ataques
-
-### Control de Datos
-
-- **Arquitectura funcional**: Funciones puras para filtros, agregaciones y enriquecimiento
-- **Inmutabilidad**: Uso de `ReadonlyArray` y tipos `readonly` en toda la capa de dominio
-- **Pipeline de datos**: Flujo predecible: fetch → validate → filter → enrich → aggregate → paginate
-- **Testing**: Cada capa del pipeline tiene tests unitarios e integración
-
-### User Experience
-
-- **SSR para velocidad**: Datos pre-renderizados en servidor, mejor TTFB
-- **Client solo para interacción**: DOM y UI interactiva, sin lógica de negocio
-- **Optimistic UI**: Feedback inmediato en acciones del usuario
-- **Skeleton Loading**: Estados de carga con skeleton screens para feedback visual
-- **Responsive**: Mobile-first design
-
----
 
 ## Scripts Disponibles
 

@@ -20,7 +20,7 @@ export function useUrlFilter() {
         params.delete("page")
       }
 
-      router.push(`?${params.toString()}`)
+      router.replace(`?${params.toString()}`, { scroll: false })
     },
     [router, searchParams]
   )
@@ -41,7 +41,7 @@ export function useUrlFilter() {
         params.delete("page")
       }
 
-      router.push(`?${params.toString()}`)
+      router.replace(`?${params.toString()}`, { scroll: false })
     },
     [router, searchParams]
   )
@@ -59,7 +59,7 @@ export function useUrlFilter() {
     (...keys: string[]) => {
       const params = new URLSearchParams(searchParams.toString())
       keys.forEach((key) => params.delete(key))
-      router.push(`?${params.toString()}`)
+      router.replace(`?${params.toString()}`, { scroll: false })
     },
     [router, searchParams]
   )
@@ -76,7 +76,7 @@ export function useUrlFilter() {
         }
       })
 
-      router.push(`?${params.toString()}`)
+      router.replace(`?${params.toString()}`, { scroll: false })
     },
     [router, searchParams]
   )

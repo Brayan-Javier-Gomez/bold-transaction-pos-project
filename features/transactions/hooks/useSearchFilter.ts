@@ -41,7 +41,7 @@ export function useSearchFilter(debounceDelay: number = 500) {
     }
 
     if (shouldUpdate) {
-      router.push(`?${params.toString()}`)
+      router.replace(`?${params.toString()}`, { scroll: false })
     }
 
     if (validationErrorRef.current !== newValidationError) {

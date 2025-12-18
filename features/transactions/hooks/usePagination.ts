@@ -10,7 +10,7 @@ export function usePagination(meta: PaginationMeta) {
     (page: number) => {
       const params = new URLSearchParams(searchParams.toString())
       params.set("page", page.toString())
-      router.push(`?${params.toString()}`)
+      router.replace(`?${params.toString()}`, { scroll: false })
     },
     [router, searchParams]
   )
