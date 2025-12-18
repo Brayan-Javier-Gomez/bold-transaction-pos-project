@@ -46,11 +46,11 @@ export default async function SalesResumeCard({
   return (
     <section className={styles.card}>
       <div className={styles.card__header}>
-        <div className={styles.card__header__title}>Total de ventas de {periodTitle}</div>
+        <h2 className={styles.card__header__title}>Total de ventas de {periodTitle}</h2>
         <span className={styles.tooltip}>
           <div className={styles.tooltip__icon}></div>
           <div className={styles.tooltip__info}>
-            Muestra el valor total de las transacciones realizadas con éxito en la fecha seleccionada.          </div>
+            Muestra el valor total de las transacciones realizadas con éxito en la fecha seleccionada.</div>
         </span>
       </div>
       <div className={styles.card__content}>

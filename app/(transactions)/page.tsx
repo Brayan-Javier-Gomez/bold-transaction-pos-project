@@ -28,7 +28,6 @@ export default async function TransactionsPage({ searchParams }: PageProps) {
         newParams.set(key, value)
       }
     })
-
     redirect(`?${newParams.toString()}`)
   }
 
@@ -48,6 +47,7 @@ export default async function TransactionsPage({ searchParams }: PageProps) {
 
   return (
     <main className={styles.transaction__page}>
+      <h1 className="sr-only">Dashboard de transacciones</h1>
       {/* Transaction resume */}
       <section className={styles.transactions__resume}>
         <SalesResumeCard period={period} />
@@ -57,9 +57,9 @@ export default async function TransactionsPage({ searchParams }: PageProps) {
       {/* Transaction table */}
       <section className={styles.transactions__section}>
         <div className={styles.transactions__section__header}>
-          <p className={styles.transactions__section__title}>
+          <h2 className={styles.transactions__section__title}>
             Tus ventas de {periodTitle}
-          </p>
+          </h2>
         </div>
         <Search />
         <TransactionTable searchParams={params} />
