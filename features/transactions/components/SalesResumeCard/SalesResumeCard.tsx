@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { getSalesTotals } from "@/features/transactions/services/transaction.service";
 import { formatCurrency } from "@/lib/utils/format";
-import { getPeriodDisplayName } from "@/lib/utils/date-filters";
+import { getPeriodDateRange, getPeriodDisplayName } from "@/lib/utils/date-filters";
 import type { PeriodFilter } from "@/lib/types";
 import styles from "./SalesResumeCard.module.scss";
 
@@ -11,13 +11,13 @@ interface SalesResumeCardProps {
 
 async function SalesContent({ period }: { readonly period?: PeriodFilter }) {
   const { total } = await getSalesTotals(period);
-  const periodText = getPeriodDisplayName(period);
+  const dateRange = getPeriodDateRange(period);
 
   return (
     <>
       <div className={styles.card__content__title}>{formatCurrency(total)}</div>
       <div className={styles.card__content__subtitle}>
-        {periodText}, {new Date().getFullYear()}
+        {dateRange}
       </div>
     </>
   );
@@ -41,10 +41,12 @@ function SalesCardSkeleton() {
 export default async function SalesResumeCard({
   period,
 }: SalesResumeCardProps) {
+  const periodTitle = getPeriodDisplayName(period);
+
   return (
     <section className={styles.card}>
       <div className={styles.card__header}>
-        <div className={styles.card__header__title}>Total de ventas</div>
+        <div className={styles.card__header__title}>Total de ventas de {periodTitle}</div>
         <span className={styles.tooltip}>
           <div className={styles.tooltip__icon}></div>
           <div className={styles.tooltip__info}>

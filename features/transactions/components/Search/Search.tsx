@@ -15,7 +15,7 @@ export default function Search() {
           inputMode="search"
           autoComplete="off"
           spellCheck={false}
-          placeholder="Buscar por ID, monto, método de pago..."
+          placeholder="Buscar"
           minLength={1}
           maxLength={100}
           pattern="[a-zA-Z0-9\s\-_]*"
