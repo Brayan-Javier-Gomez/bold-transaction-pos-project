@@ -206,7 +206,8 @@ describe("transaction.service (integration)", () => {
 
     it("debe validar período antes de procesar", async () => {
       await expect(async () => {
-        await getSalesTotals("invalid" as any)
+        // @ts-expect-error - Testing invalid period value
+        await getSalesTotals("invalid")
       }).rejects.toThrow()
     })
 

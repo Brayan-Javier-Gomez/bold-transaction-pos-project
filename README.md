@@ -176,13 +176,14 @@ Este proyecto fue diseñado para manejar **información financiera sensible**. P
 - **Arquitectura funcional**: Funciones puras para filtros, agregaciones y enriquecimiento
 - **Inmutabilidad**: Uso de `ReadonlyArray` y tipos `readonly` en toda la capa de dominio
 - **Pipeline de datos**: Flujo predecible: fetch → validate → filter → enrich → aggregate → paginate
-- **Testing exhaustivo**: Cada capa del pipeline tiene tests unitarios e integración
+- **Testing**: Cada capa del pipeline tiene tests unitarios e integración
 
 ### User Experience
 
 - **SSR para velocidad**: Datos pre-renderizados en servidor, mejor TTFB
 - **Client solo para interacción**: DOM y UI interactiva, sin lógica de negocio
 - **Optimistic UI**: Feedback inmediato en acciones del usuario
+- **Skeleton Loading**: Estados de carga con skeleton screens para feedback visual
 - **Responsive**: Mobile-first design
 
 ---
