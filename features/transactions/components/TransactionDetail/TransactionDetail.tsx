@@ -131,7 +131,7 @@ export default function TransactionDetail({
             className={`${styles.transaction__detail__reference} ${styles.transaction__detail__info}`}
           >
             <p>Referencia</p>
-            <span>{transaction.transactionReference}</span>
+            <span>**** {transaction.transactionReference}</span>
           </div>
         </section>
       </aside>

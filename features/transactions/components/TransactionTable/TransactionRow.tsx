@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react"
-import { formatCurrency, formatDateTime, formatPaymentMethod } from "@/lib/utils/format"
+import { formatCurrency, formatDateTime } from "@/lib/utils/format"
 import TransactionDetail from "../TransactionDetail/TransactionDetail"
 import SalesTypeIcon from "../SalesTypeIcon"
 import PaymentMethodIcon from "../PaymentMethodIcon"
@@ -43,7 +43,11 @@ export default function TransactionRow({ transaction }: TransactionRowProps) {
               paymentMethod={transaction.paymentMethod}
               franchise={transaction.franchise}
             />
-            <span>{formatPaymentMethod(transaction.paymentMethod, transaction.franchise)}</span>
+            <span>
+              {transaction.paymentMethod === "PSE"
+                ? "PSE"
+                : `**** ${transaction.transactionReference}`}
+            </span>
           </div>
         </td>
         <td data-label="ID">{transaction.id}</td>
