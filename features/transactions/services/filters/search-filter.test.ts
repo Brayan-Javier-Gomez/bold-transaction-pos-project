@@ -127,5 +127,41 @@ describe("search-filter", () => {
       const result = filterBySearch(txWithNulls, "VISA")
       expect(result.length).toBe(0)
     })
+
+    it("debe buscar por texto amigable 'Cobro exitoso'", () => {
+      const result = filterBySearch(mockTransactions, "cobro exitoso")
+      expect(result.length).toBe(3)
+      expect(result.every(tx => tx.status === "SUCCESSFUL")).toBe(true)
+    })
+
+    it("debe buscar por texto amigable 'Cobro no realizado'", () => {
+      const result = filterBySearch(mockTransactions, "cobro no realizado")
+      expect(result.length).toBe(1)
+      expect(result[0].status).toBe("REJECTED")
+    })
+
+    it("debe buscar por texto parcial 'exitoso'", () => {
+      const result = filterBySearch(mockTransactions, "exitoso")
+      expect(result.length).toBe(3)
+      expect(result.every(tx => tx.status === "SUCCESSFUL")).toBe(true)
+    })
+
+    it("debe buscar por texto parcial 'realizado'", () => {
+      const result = filterBySearch(mockTransactions, "realizado")
+      expect(result.length).toBe(1)
+      expect(result[0].status).toBe("REJECTED")
+    })
+
+    it("debe buscar por código de status 'successful'", () => {
+      const result = filterBySearch(mockTransactions, "successful")
+      expect(result.length).toBe(3)
+      expect(result.every(tx => tx.status === "SUCCESSFUL")).toBe(true)
+    })
+
+    it("debe buscar por código de status 'rejected'", () => {
+      const result = filterBySearch(mockTransactions, "rejected")
+      expect(result.length).toBe(1)
+      expect(result[0].status).toBe("REJECTED")
+    })
   })
 })

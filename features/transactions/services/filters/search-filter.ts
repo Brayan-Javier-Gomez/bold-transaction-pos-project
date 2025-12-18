@@ -2,13 +2,22 @@ import type { Transaction } from "@/lib/types"
 import { sanitizeString } from "@/lib/utils/format"
 
 
+const STATUS_LABELS = {
+  SUCCESSFUL: "cobro exitoso",
+  REJECTED: "cobro no realizado"
+} as const
+
 const SEARCHABLE_FIELDS = {
   id: (tx: Transaction) => tx.id.toLowerCase(),
   transactionReference: (tx: Transaction) => tx.transactionReference.toString(),
   amount: (tx: Transaction) => tx.amount.toString(),
   paymentMethod: (tx: Transaction) => tx.paymentMethod.toLowerCase(),
   franchise: (tx: Transaction) => tx.franchise?.toLowerCase() ?? "",
-  status: (tx: Transaction) => tx.status.toLowerCase(),
+  status: (tx: Transaction) => {
+    const statusCode = tx.status.toLowerCase()
+    const statusLabel = STATUS_LABELS[tx.status]
+    return `${statusCode} ${statusLabel}`
+  },
   salesType: (tx: Transaction) => tx.salesType.toLowerCase(),
   deduction: (tx: Transaction) => tx.deduction?.toString() ?? ""
 } as const
