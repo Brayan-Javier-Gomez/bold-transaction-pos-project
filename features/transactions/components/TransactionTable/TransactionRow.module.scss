@@ -34,6 +34,26 @@
     font-size: 14px !important;
   }
 
+  &__deduction{
+    font-weight: 600;
+    color: var(--bold-blue);
+    font-size: 14px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+    span{
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--bold-gray-1);
+    }
+    p{
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--bold-red);
+    }
+  }
+
   &__payment {
     display: flex;
     align-items: center;

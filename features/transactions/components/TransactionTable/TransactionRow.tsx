@@ -47,7 +47,17 @@ export default function TransactionRow({ transaction }: TransactionRowProps) {
           </div>
         </td>
         <td data-label="ID">{transaction.id}</td>
-        <td data-label="Monto" className={styles.transaction__row__amount}>{formatCurrency(transaction.amount)}</td>
+        <td data-label="Monto" className={styles.transaction__row__amount}>
+          <p>
+            {formatCurrency(transaction.amount)}
+          </p>
+          {transaction.deduction && (
+            <div className={styles.transaction__row__deduction}>
+              <span>Deducción Bold</span>
+              <p>-{formatCurrency(transaction.deduction)}</p>
+            </div>
+          )}
+        </td>
       </tr>
 
       {showDetail && (

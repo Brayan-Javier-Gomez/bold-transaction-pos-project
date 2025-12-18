@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useDebounce } from "./useDebounce"
 import { searchQuerySchema } from "@/features/transactions/schemas/filters.schema"
@@ -9,14 +9,15 @@ export function useSearchFilter(debounceDelay: number = 500) {
   const searchParams = useSearchParams()
   const [searchTerm, setSearchTerm] = useState(searchParams.get("search") ?? "")
   const [validationError, setValidationError] = useState<string | null>(null)
+  const validationErrorRef = useRef<string | null>(null)
 
   const debouncedSearchTerm = useDebounce(searchTerm, debounceDelay)
 
   useEffect(() => {
-
     const currentSearch = searchParams.get("search")
     const params = new URLSearchParams(searchParams.toString())
     let shouldUpdate = false
+    let newValidationError: string | null = null
 
     if (debouncedSearchTerm.trim()) {
       try {
@@ -27,24 +28,27 @@ export function useSearchFilter(debounceDelay: number = 500) {
           params.delete("page")
           shouldUpdate = true
         }
-
-        setValidationError(null)
       } catch (error) {
         if (error instanceof Error) {
-          setValidationError("Solo caracteres alfanuméricos permitidos")
+          newValidationError = "Solo caracteres alfanuméricos permitidos"
         }
-        return
       }
     } else {
       if (currentSearch !== null) {
         params.delete("search")
         shouldUpdate = true
       }
-      setValidationError(null)
     }
 
     if (shouldUpdate) {
       router.push(`?${params.toString()}`)
+    }
+
+    if (validationErrorRef.current !== newValidationError) {
+      validationErrorRef.current = newValidationError
+      queueMicrotask(() => {
+        setValidationError(newValidationError)
+      })
     }
   }, [debouncedSearchTerm, router, searchParams])
 

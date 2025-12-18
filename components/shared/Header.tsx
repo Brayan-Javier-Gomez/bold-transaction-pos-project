@@ -17,7 +17,7 @@ export default function Header() {
           <Link href="#" className={styles.header__nav__items}>
             Mi negocio
           </Link>
-          <Link href="#" className={styles.header__nav__items}>
+          <Link href="#" className={`${styles.header__nav__items} ${styles.help_icon}`}>
             Ayuda
           </Link>
         </nav>

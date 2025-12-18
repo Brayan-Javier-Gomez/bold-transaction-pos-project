@@ -56,8 +56,9 @@
     width: 100%;
     max-width: 320px;
     position: absolute;
-    right: 0;
-    top: 14px;
+    left: 50%;
+    top: 25%;
+    transform: translateX(-50%);
     background-color: #fff;
     border-radius: 8px;
     display: flex;
@@ -65,9 +66,17 @@
     padding: 16px;
     z-index: 9;
     @include shadow;
-
+    @include tablet{
+      transform: none;
+      left: unset;
+      right: 0;
+      top: 14px;
+    }
     &.open {
-      animation: slideDown 0.25s ease-out;
+      animation: slideDownMobile 0.25s ease-out;
+      @include tablet{
+        animation: slideDownTablet 0.25s ease-out;
+      }
     }
 
     &__header {
@@ -213,7 +222,18 @@
   }
 }
 
-@keyframes slideDown {
+@keyframes slideDownMobile {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes slideDownTablet {
   from {
     opacity: 0;
     transform: translateY(-10px);

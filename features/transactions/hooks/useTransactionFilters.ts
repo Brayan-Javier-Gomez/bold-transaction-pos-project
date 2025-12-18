@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react"
+import { useState, useCallback, useEffect, useRef } from "react"
 import { useUrlFilter } from "./useUrlFilter"
 import type { PaymentMethod, SalesType } from "@/lib/types"
 
@@ -6,11 +6,6 @@ interface FilterState {
   salesType: SalesType | null
   paymentMethods: Set<PaymentMethod>
 }
-
-interface InternalState extends FilterState {
-  hasChanges: boolean 
-}
-
 
 function parsePaymentMethods(param: string | null): Set<PaymentMethod> {
   if (!param) return new Set()
@@ -25,16 +20,29 @@ export function useTransactionFilters() {
   const currentSalesType = searchParams.get("salesType") as SalesType | null
   const currentPaymentMethod = searchParams.get("paymentMethod")
 
-  const [filters, setFilters] = useState<FilterState>(() => ({
+  const initialFilters: FilterState = {
     salesType: currentSalesType,
     paymentMethods: parsePaymentMethods(currentPaymentMethod)
-  }))
+  }
+
+  const [filters, setFilters] = useState<FilterState>(initialFilters)
+  const prevUrlFiltersRef = useRef<string>("")
 
   useEffect(() => {
-    setFilters({
-      salesType: currentSalesType,
-      paymentMethods: parsePaymentMethods(currentPaymentMethod)
-    })
+    const urlFiltersKey = `${currentSalesType}|${currentPaymentMethod}`
+
+    if (prevUrlFiltersRef.current !== urlFiltersKey) {
+      prevUrlFiltersRef.current = urlFiltersKey
+
+      const urlFilters: FilterState = {
+        salesType: currentSalesType,
+        paymentMethods: parsePaymentMethods(currentPaymentMethod)
+      }
+
+      queueMicrotask(() => {
+        setFilters(urlFilters)
+      })
+    }
   }, [currentSalesType, currentPaymentMethod])
 
   const handleSalesTypeChange = useCallback((type: SalesType) => {

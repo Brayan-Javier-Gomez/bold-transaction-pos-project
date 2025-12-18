@@ -8,6 +8,7 @@ import {
 } from "./validators"
 import { applyAllFilters, filterByPeriod } from "./filters"
 import { calculateSalesTotals } from "./aggregations"
+import { enrichTransactionsWithDeductions } from "./enrichers"
 
 async function fetchTransactionsFromAPI(): Promise<ReadonlyArray<Transaction>> {
   const endpoint = process.env.TRANSACTIONS_ENDPOINT
@@ -34,7 +35,8 @@ async function fetchTransactionsFromAPI(): Promise<ReadonlyArray<Transaction>> {
 
     const validatedData = transactionAPIResponseSchema.parse(rawData)
 
-    return validatedData.data
+    // Enriquecer transacciones con deducciones calculadas 2%
+    return enrichTransactionsWithDeductions(validatedData.data)
   } catch (error) {
     if (error instanceof Error) {
       console.error("Error fetching transactions:", error.message)
