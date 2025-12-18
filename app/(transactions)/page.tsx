@@ -4,7 +4,7 @@ import PeriodSelector from "@/features/transactions/components/PeriodSelector/Pe
 import Search from "@/features/transactions/components/Search/Search"
 import TransactionTable from "@/features/transactions/components/TransactionTable/TransactionTable"
 import { periodFilterSchema } from "@/features/transactions/schemas/filters.schema"
-import { getCurrentMonthName } from "@/lib/utils/date-filters"
+import { getPeriodDisplayName } from "@/lib/utils/date-filters"
 import type { PeriodFilter } from "@/lib/types"
 import styles from "./Transactions.module.scss"
 
@@ -44,7 +44,7 @@ export default async function TransactionsPage({ searchParams }: PageProps) {
     console.warn("Período inválido en URL:", error)
   }
 
-  const monthName = getCurrentMonthName()
+  const periodTitle = getPeriodDisplayName(period)
 
   return (
     <main className={styles.transaction__page}>
@@ -58,7 +58,7 @@ export default async function TransactionsPage({ searchParams }: PageProps) {
       <section className={styles.transactions__section}>
         <div className={styles.transactions__section__header}>
           <p className={styles.transactions__section__title}>
-            Tus ventas de {monthName}
+            Tus ventas de {periodTitle}
           </p>
         </div>
         <Search />

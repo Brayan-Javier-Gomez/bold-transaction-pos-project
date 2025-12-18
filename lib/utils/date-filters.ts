@@ -60,6 +60,13 @@ function getMonthName(date: Date): string {
   return monthNames[date.getMonth()]
 }
 
+function getShortMonthName(date: Date): string {
+  const monthNames = [
+    "ene", "feb", "mar", "abr", "may", "jun",
+    "jul", "ago", "sep", "oct", "nov", "dic"
+  ]
+  return monthNames[date.getMonth()]
+}
 
 function formatDayMonth(date: Date): string {
   const day = date.getDate()
@@ -67,14 +74,33 @@ function formatDayMonth(date: Date): string {
   return `${day} de ${month}`
 }
 
+function formatCompactDate(date: Date): string {
+  return `${date.getDate()} ${getShortMonthName(date)}`
+}
+
 export function getPeriodDisplayName(period?: PeriodFilter): string {
+  if (!period) return getCurrentMonthName()
+
+  switch (period) {
+    case "today": {
+      return "Hoy"
+    }
+    case "week": {
+      return "Esta semana"
+    }
+    case "month":
+      return getCurrentMonthName()
+  }
+}
+
+export function getPeriodDateRange(period?: PeriodFilter): string {
   const now = new Date()
 
   if (!period) return getCurrentMonthName()
 
   switch (period) {
     case "today": {
-      return `Hoy ${formatDayMonth(now)}`
+      return formatDayMonth(now)
     }
     case "week": {
       // Calcular inicio de semana (lunes)
@@ -83,10 +109,10 @@ export function getPeriodDisplayName(period?: PeriodFilter): string {
       const diff = dayOfWeek === 0 ? -6 : 1 - dayOfWeek
       startOfWeek.setDate(startOfWeek.getDate() + diff)
 
-      const startFormatted = formatDayMonth(startOfWeek)
-      const endFormatted = formatDayMonth(now)
+      const startFormatted = formatCompactDate(startOfWeek)
+      const endFormatted = formatCompactDate(now)
 
-      return `Esta semana - ${startFormatted} al ${endFormatted}`
+      return `${startFormatted} - ${endFormatted}`
     }
     case "month":
       return getCurrentMonthName()

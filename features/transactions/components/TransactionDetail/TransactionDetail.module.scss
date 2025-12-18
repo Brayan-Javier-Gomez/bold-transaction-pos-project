@@ -4,15 +4,23 @@
     &__detail{
         position: fixed;
         right: 0;
-        top: 0;
+        bottom: 0;
         max-width: 400px;
         width: 100%;
-        height: 100dvh;
+        height: 60dvh;
         background-color: #fff;
-        border-radius: 12px 0 0 12px;
+        border-radius: 12px 12px 0 0;
         z-index: 3;
         @include shadow;
-
+        animation: slideInFromBottom 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        @include tablet{
+            bottom: unset;
+            right: 0;
+            top: 0;
+            height: 100dvh;
+            border-radius: 12px 0 0 12px;
+            animation: slideInFromRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
         &__content{
             display: flex;
             flex-direction: column;
@@ -23,8 +31,8 @@
         }
 
         &__close{
-            width: 15px;
-            height: 15px;
+            width: 18px;
+            height: 18px;
             background-image: url("/assets/icons/close.svg");
             background-size: cover;
             background-color: transparent;
@@ -85,9 +93,6 @@
                 gap: 8px;
             }
         }
-        &__type{
-
-        }
     }
 }
 
@@ -100,4 +105,36 @@
     z-index: 2;
     background-color: #c8c8c84f;
     backdrop-filter: blur(0.8px);
+    animation: fadeIn 0.25s ease-in-out forwards;
+}
+
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
